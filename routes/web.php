@@ -18,16 +18,18 @@ Route::get('index', function () {
     return view('index');
 });
 
-Route::get('pe9', function () {
-    return view('pe9');
-});
+// Route::get('pe9', function () {
+
+//     return view('pe9');
+// });
+
 
 Route::get('pe10', function () {
     return view('pe10');
 });
-Route::get('pe30x1x2', function () {
-    return view('pe30x1x2');
-});
+// Route::get('pe30x1x2', function () {
+//     return view('pe30x1x2');
+// });
 
 Route::get('pe11', function () {
     return view('pe11');
@@ -45,6 +47,7 @@ Route::get('pe9a', function () {
     return view('pe9a');
 });
 
-
-#routes/web.php
+// ----------------------------------------------------
+Route::get('/pe9', 'FormController@viewPE9');
+Route::get('/pe30x1x2', 'FormController@viewPE30');
 

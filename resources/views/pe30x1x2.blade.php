@@ -4,11 +4,10 @@
   <div class="row justify-content-md-center">
     <div class="col col-lg-3">
   <form> <center>
-<select class="custom-select custom-select-lg mb-3" id="election" name="election" >
-  <option value="pe">Choose The  Election </option>
-  <option value="pre">PRE</option>
-  <option value="mc">MC</option>
-  <option value="r">R</option>
+<select class="custom-select custom-select-lg mb-3" id="election" name="election"onChange >
+    @foreach($Fdata as $data)
+      <option value="{{ $data->id }}">{{ $data->name }}</option>
+    @endforeach
 </select>
 </div>
 <div class="col col-lg-3">
@@ -55,34 +54,20 @@
              <th align="right"> Party Name</th>
              <th align="left"> Symbol</th>
              <th align="left"> No</th>
-             </tr>
-             <tr>
-             <td align="right"> </td>
-             <td align="left"> </td>
-             <td align="left"></td>
-             </tr>
-             <tr>
-             <td align="right"> </td>
-             <td align="left"> </td>
-             <td align="left"></td>
-             </tr>
-             <tr>
-             <td align="right"> </td>
-             <td align="left"> </td>
-             <td align="left"></td>
-             </tr>
-             <tr>
-             <td align="right"> </td>
-             <td align="left"> </td>
-             <td align="left"></td>
-             </tr>
-             <tr>
-             <td align="right"> </td>
-             <td align="left"> </td>
-             <td align="left"></td>
-             </tr>
+          </tr>
+
+          @foreach($Fdata as $data)
+          <tr>
+              <td>{{$data->id}}</td>
+              <td>{{$data->name}}</td>
+              <td>{{$data->username}}</td>
+
+          </tr>
+         @endforeach
             
              </table >
+
+
              <table align="center" border="1" cellpadding="5" width="80%">
              <tr>
              <td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td>
