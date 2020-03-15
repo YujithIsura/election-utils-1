@@ -8,27 +8,23 @@ $selec=0;
   <div class="row justify-content-md-center">
     <div class="col col-lg-3">
   <form> <center>
-<select class="custom-select custom-select-lg mb-3" id="election" name="election"onChange >
+<select class="custom-select custom-select-lg mb-3" class="election" name="election"onChange >
+<option value="0" disabled="true" selected="true">Select Election</option> 
     <?php $__currentLoopData = $Fdata; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
       <option value="<?php echo e($data->id); ?>"><?php echo e($data->name); ?></option>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 </select>
 </div>
 <div class="col col-lg-3">
-<select class="custom-select custom-select-lg mb-3" id="district" name="district" >
-  <?php if($selec==1): ?>
-  {
-     <?php $__currentLoopData = $district; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $edis): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-      <option value="<?php echo e($edis->id); ?>"><?php echo e($edis->name); ?></option>
-    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-  }
-  <?php endif; ?>
-   
+
+<select class="custom-select custom-select-lg mb-3" class="district" name="district" >
+    <option value="0" disabled="true" selected="true">Select District</option> 
 </select>
+
 </div>
 </div>  </div> 
 <center>
-<button type="button" class="btn btn-primary">Generate Report </button>
+<Button type="button" class="btn btn-primary" id="bellot">Generate Report </Button>
 </center>
 </form>
   </center>
@@ -57,25 +53,19 @@ $selec=0;
             
           </h5>
          <p> Ballot Paper No:...............................................................................................................................................................................</p>
-         <table align="center" border="1" cellpadding="5" width="80%">
+         <table align="center" border="1" cellpadding="5" width="80%" id="tblBellot">
+         <thead>
          	<tr>
              <th align="right"> Party Name</th>
              <th align="left"> Symbol</th>
              <th align="left"> No</th>
           </tr>
-
-          <?php $__currentLoopData = $Fdata; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $data): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-          <tr>
-              <td><?php echo e($data->id); ?></td>
-              <td><?php echo e($data->name); ?></td>
-              <td><?php echo e($data->username); ?></td>
-
-          </tr>
-         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+          </thead>
+          <tbody>
+          
+         </tbody>
             
              </table >
-
-
              <table align="center" border="1" cellpadding="5" width="80%">
              <tr>
              <td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td>
@@ -103,40 +93,72 @@ $selec=0;
   </section>
 
   <?php $__env->startPush('scripts'); ?>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script>
+  
+//  $(document).ready(function(){
+
+// -------------------------Get District----------------------------------
   $("select[name='election']").change(function () {
-    <?php $selec=1; ?>
-    var election_id = $("select[name='election']").val();
-        if (election_id !== '' && election_id !== null) 
-        {
-          $("select[name='district']").prop('disabled',
-          false).find('option[value]').remove();
 
-           $.ajax({
-              type: 'POST',
-              url: <?php echo e(url('/getDistrict')); ?>, 
-              data: {id: election_id },
-              })
-              .done(function (data) {
-                
+      var elec_id=$(this).val();
+      var op=" ";
 
-                $.each(data, function (key, value) {
-                  $("select[name='district']")
-                      .append($("<option></option>")
-                      .attr("value", key)
-                      .text(value));
-              });
-            })
-            .fail(function(jqXHR, textStatus){
-                console.log(jqXHR);
-            });
+      $.ajax({
+        type:'GET',
+        url:'<?php echo URL::to('getDistrict'); ?>',
+        data:{'id':elec_id},
+        success:function(data){
 
-    } 
-   else {
-    $("select[name='district']").prop('disabled', 
-    true).find("option[value]").remove();
-   }
+          op+='<option value="0" disabled="true" >Select District</option>';
+          for(var i=0;i<data.length;i++){
+          op+='<option value="'+data[i].id+'">'+data[i].name+'</option>';
+          
+          }
+          $("select[name='district']").html("");
+          $("select[name='district']").append(op);
+
+        },
+        error:function(){
+
+        }
+      });
+    });
+
+// -------------------------Get Bellot----------------------------------
+$("#bellot").click(function () {
+  var elec_id = $("select[name='election']").val();
+  var dist_id = $("select[name='district']").val();
+  var op=" ";
+
+$.ajax({
+  type:'GET',
+  url:'<?php echo URL::to('getBallot'); ?>',
+  data:{'elecid':elec_id,'disid':dist_id},
+  success:function(data){
+
+    for(var i=0;i<data.length;i++){
+
+      op+='<tr>';
+      op+='<td>'+data[i].id+'</td><td>'+data[i].name+'</td><td>'+data[i].username+'</td>';
+      op+='</tr>';
+    
+    }
+    $("#tblBellot tbody").empty();
+    $("#tblBellot tbody").append(op);
+
+  },
+  error:function(){
+
+  }
 });
+});
+
+// ---------------------------------------------------------------------
+
+
+// });
+
 </script>
 
   
