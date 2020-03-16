@@ -1,9 +1,6 @@
 @extends('layout')
 @section('content')
 
-@php
-$selec=0;
-@endphp
 
 <div class="container">
   <div class="row justify-content-md-center">
@@ -101,7 +98,7 @@ $selec=0;
 
 // -------------------------Get District----------------------------------
   $("select[name='election']").change(function () {
-
+      $("#tblBellot tbody").empty();
       var elec_id=$(this).val();
       var op=" ";
 
@@ -156,6 +153,10 @@ $.ajax({
 });
 
 // ---------------------------------------------------------------------
+$("select[name='district']").change(function () {
+      $("#tblBellot tbody").empty();
+});
+
 
 
 // });
