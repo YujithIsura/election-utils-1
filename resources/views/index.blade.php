@@ -1,7 +1,7 @@
 @extends('layout')
 @section('content')
 
-  <section class="page-section clearfix">
+  <section class="page-section clearfix mt-2">
     <div class="container" id="example">
       
         <div class="intro-text left-0 text-center bg-faded p-5 rounded">
