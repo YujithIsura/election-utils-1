@@ -28,8 +28,8 @@ class FormController extends Controller
     }
     
     public function getDistrict(Request $request){
-        $client = new Client();
-    	$response = $client->request('GET', env('NOMINETION_API').'?id='.$request->id);
+        $client = resolve('nomination.client');
+        $response = $client->request('GET','elections/'.$request->id.'/divisions');
     	$statusCode = $response->getStatusCode();
         $body = $response->getBody()->getContents();
         $data = json_decode($body);
@@ -37,8 +37,8 @@ class FormController extends Controller
       }
 
       public function getBallot(Request $request){
-        $client = new Client();
-    	$response = $client->request('GET', env('NOMINETION_API'));
+        $client = resolve('nomination.client');
+    	$response = $client->request('GET','divisions/'.$request->id.'/divisionData');
     	$statusCode = $response->getStatusCode();
         $body = $response->getBody()->getContents();
         $data = json_decode($body);
