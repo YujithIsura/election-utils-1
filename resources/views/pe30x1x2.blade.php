@@ -125,7 +125,7 @@
 
 // -------------------------Get Bellot----------------------------------
 $("#bellot").click(function () {
-  var elec_id = $("select[name='election']").val();
+  //var elec_id = $("select[name='election']").val();
   var dist_id = $("select[name='district']").val();
   var op=" ";
 
@@ -133,20 +133,21 @@ $.ajax({
   type:'GET',
   url:'{!!URL::to('getBallot')!!}',
   data:{'id':dist_id},
+  
   success:function(data){
-
+    
     for(var i=0;i<data.length;i++){
 
       op+='<tr>';
-      op+='<td>'+data[i].id+'</td><td>'+data[i].name+'</td><td>'+data[i].id+'</td>';
-      op+='</tr>';
-    
+      op+='<td>'+data[i].id+'</td><td>'+data[i].name+'</td><td>'+data[i].symbol+'</td>';
+      op+='</tr>';   
     }
     $("#tblBellot tbody").empty();
     $("#tblBellot tbody").append(op);
 
   },
   error:function(){
+    alert("error");
 
   }
 });
