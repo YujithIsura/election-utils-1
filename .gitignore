@@ -24,3 +24,4 @@ Homestead.json
 storage/framework/views/ae5a9a730500788d3a7068e5205c4fdaa854b85b.php
 storage/logs/laravel.log
 storage/logs/laravel.log
+storage/*
