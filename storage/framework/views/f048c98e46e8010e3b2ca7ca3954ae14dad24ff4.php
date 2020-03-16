@@ -1,5 +1,4 @@
-@extends('layout')
-@section('content')
+<?php $__env->startSection('content'); ?>
 
   <section class="page-section clearfix mt-2">
     <div class="container" id="example">
@@ -42,7 +41,8 @@
 </div>
 </section>
 
-@endsection
+<?php $__env->stopSection(); ?>
             
             
          
+<?php echo $__env->make('layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
