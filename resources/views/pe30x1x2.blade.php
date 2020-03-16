@@ -132,13 +132,13 @@ $("#bellot").click(function () {
 $.ajax({
   type:'GET',
   url:'{!!URL::to('getBallot')!!}',
-  data:{'elecid':elec_id,'disid':dist_id},
+  data:{'id':dist_id},
   success:function(data){
 
     for(var i=0;i<data.length;i++){
 
       op+='<tr>';
-      op+='<td>'+data[i].id+'</td><td>'+data[i].name+'</td><td>'+data[i].username+'</td>';
+      op+='<td>'+data[i].id+'</td><td>'+data[i].name+'</td><td>'+data[i].id+'</td>';
       op+='</tr>';
     
     }
