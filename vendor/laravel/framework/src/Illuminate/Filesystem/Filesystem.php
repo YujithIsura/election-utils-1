@@ -117,9 +117,9 @@ class Filesystem
      * @param  bool  $lock
      * @return int
      */
-    public function put($path, $contents, $lock = false)
+    public function put($path, $contents)
     {
-        return file_put_contents($path, $contents, $lock ? LOCK_EX : 0);
+        return file_put_contents($path, $contents ? LOCK_EX : 0);
     }
 
     /**
