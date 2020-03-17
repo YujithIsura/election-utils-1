@@ -9,13 +9,47 @@ class FormController extends Controller
     public function viewPE9()
     {
         $client = resolve('nomination.client');
-        $response = $client->request('GET', 'teams');
-        $statusCode = $response->getStatusCode();
+    	$response = $client->request('GET','elections/electionStatus/APPROVE');
+    	$statusCode = $response->getStatusCode();
         $body = $response->getBody()->getContents();
         $obj = json_decode($body);
         return view('pe9')->with('Fdata',$obj);
         
     }
+
+    public function viewPE10()
+    {
+        $client = resolve('nomination.client');
+    	$response = $client->request('GET','elections/electionStatus/APPROVE');
+    	$statusCode = $response->getStatusCode();
+        $body = $response->getBody()->getContents();
+        $obj = json_decode($body);
+        return view('pe10')->with('Fdata',$obj);
+        
+    }
+
+    public function viewPE10X1()
+    {
+        $client = resolve('nomination.client');
+    	$response = $client->request('GET','elections/electionStatus/APPROVE');
+    	$statusCode = $response->getStatusCode();
+        $body = $response->getBody()->getContents();
+        $obj = json_decode($body);
+        return view('pe10x1')->with('Fdata',$obj);
+        
+    }
+
+    public function viewPE11()
+    {
+        $client = resolve('nomination.client');
+    	$response = $client->request('GET','elections/electionStatus/APPROVE');
+    	$statusCode = $response->getStatusCode();
+        $body = $response->getBody()->getContents();
+        $obj = json_decode($body);
+        return view('pe11')->with('Fdata',$obj);
+        
+    }
+
 
     public function viewPE30()
     {
@@ -26,6 +60,7 @@ class FormController extends Controller
         $obj = json_decode($body);
         return view('pe30x1x2')->with('Fdata',$obj);
     }
+    // -----------------------------------------------------------------------------------------------------
     
     public function getDistrict(Request $request){
         $client = resolve('nomination.client');

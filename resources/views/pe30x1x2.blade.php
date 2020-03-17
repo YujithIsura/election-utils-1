@@ -7,7 +7,7 @@
       <form> 
         <div class="row">
           <div class="col col-lg-5">
-            <select class="custom-select custom-select-md mb-3" class="election" name="election"onChange >
+            <select class="custom-select custom-select-md mb-3" class="election" name="election">
                 <option value="0" disabled="true" selected="true">Select Election</option> 
                 @foreach($Fdata as $data)
                   <option value="{{ $data->id }}">{{ $data->name }}</option>
@@ -131,29 +131,30 @@
 
 // -------------------------Get Bellot----------------------------------
 $("#bellot").click(function () {
-  var elec_id = $("select[name='election']").val();
   var dist_id = $("select[name='district']").val();
   var op=" ";
-  alert(dist_id);
+  // alert(dist_id);
 
 $.ajax({
   type:'GET',
   url:'{!!URL::to('getBallot')!!}',
   data:{'id':dist_id},
+  
   success:function(data){
 
     for(var i=0;i<data.length;i++){
 
       op+='<tr>';
-      op+='<td>'+data[i].id+'</td><td>'+data[i].name+'</td><td>'+data[i].id+'</td>';
-      op+='</tr>';
-    
+      op+='<td>'+data.parties[i].id+'</td><td>'+data.parties[i].name+'</td><td>'+ddata.parties[i].symbol+'</td>';
+      op+='</tr>';   
     }
+    
     $("#tblBellot tbody").empty();
     $("#tblBellot tbody").append(op);
 
   },
   error:function(){
+    alert("error");
 
   }
 });

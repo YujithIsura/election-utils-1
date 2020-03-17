@@ -4,9 +4,11 @@
       <form> 
         <div class="row">
           <div class="col col-lg-5">
-            <select class="custom-select custom-select-md mb-3" class="election" name="election"onChange >
+            <select class="custom-select custom-select-md mb-3" class="election" name="election">
                 <option value="0" disabled="true" selected="true">Select Election</option> 
-                
+                @foreach($Fdata as $data)
+                  <option value="{{ $data->id }}">{{ $data->name }}</option>
+                @endforeach
             </select>
           </div>
           <div class="col col-lg-5">
@@ -145,5 +147,42 @@
   </center>
 </div>
   </section>
+
+  @push('scripts')
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script>
+  
+//  $(document).ready(function(){
+
+// -------------------------Get District----------------------------------
+  $("select[name='election']").change(function () {
+
+      var elec_id=$(this).val();
+      var op=" ";
+
+      $.ajax({
+        type:'GET',
+        url:'{!!URL::to('getDistrict')!!}',
+        data:{'id':elec_id},
+        success:function(data){
+
+          op+='<option value="0" disabled="true" >Select District</option>';
+          for(var i=0;i<data.length;i++){
+          op+='<option value="'+data[i].id+'">'+data[i].name+'</option>';
+          
+          }
+          $("select[name='district']").html("");
+          $("select[name='district']").append(op);
+
+        },
+        error:function(){
+
+        }
+      });
+    });
+  // -----------------------------------------------------------------------
+  
+    </script>
+    @endpush
 
   @endsection
